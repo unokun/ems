@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<title>社員情報編集</title>
+</head>
+<body>
+<h3>社員情報</h3>
+<form th:action="@{'/employees/'}" method="post">
+<table border="1">
+<tbody>
+<!-- 
+<tr>
+<td>社員番号</td>
+<td><input type="text" style="disabled:disabled" class="form-control" name="employeeId" th:field="${employee.id}"/></td>
+</tr>
+ -->
+<tr>
+<td>社員名</td>
+<td><input type="text" name="name" th:value="${employee.name}"/></td>
+</tr>
+<tr>
+<td>住所</td>
+<td><input type="text" name="address" th:value="${employee.address}"/></td>
+</tr>
+</tbody>
+</table>
+<input type="submit" name="update" value="更新"></input>
+<input type="hidden" name="employeeId" th:value="${employee.id}"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<title>社員情報編集</title>
+</head>
+<body>
+<h3>社員情報</h3>
+<form th:action="@{'/employees/'}" method="post">
+<table border="1">
+<tbody>
+<tr>
+<td>社員名</td>
+<td><input type="text" name="name" /></td>
+</tr>
+<tr>
+<td>住所</td>
+<td><input type="text" name="address" /></td>
+</tr>
+</tbody>
+</table>
+<input type="submit" name="add" value="登録"></input>
+</form>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<title>従業員一覧</title>
+</head>
+<body>
+<h3>従業員一覧</h3>
+<table border="1">
+<thead>
+<tr>
+<th>社員ID</th>
+<th>名前</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr th:each="employee: ${employees}">
+<td th:text="${employee.id}"></td>
+<td th:text="${employee.name}"></td>
+<td>
+<form th:action="@{'/employees/'}" method="post">
+<input type="hidden" name="employeeId" th:value="${employee.id}"/>
+<input type="submit" name="edit" value="編集"></input>
+<input type="submit" name="cancel" value="削除"></input>
+</form>
+</td>
+</tr>
+</tbody>
+</table>
+<form th:action="@{'/employees/'}" method="post">
+<input type="submit" name="add" value="新規追加"/><br/>
+<input type="submit" name="search" value="検索..."/><br/>
+<input type="submit" name="csv_export" value="CSVファイルに出力"/><br/>
+</form>
+</body>
+</html>
