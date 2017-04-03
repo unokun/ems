@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<title>部署情報編集</title>
+</head>
+<body>
+<h3>部署情報</h3>
+<form th:action="@{'/divisions/'}" method="post">
+<table border="1">
+<tbody>
+<tr>
+<td>部署名</td>
+<td><input type="text" name="name" th:value="${division.name}"/></td>
+</tr>
+</tbody>
+</table>
+<input type="submit" name="update" th:value="${method.equals('add')} ? '登録' : '更新'"/>
+<input type="hidden" name="divisionId" th:value="${division.id}"/>
+</form>
+</body>
+</html>

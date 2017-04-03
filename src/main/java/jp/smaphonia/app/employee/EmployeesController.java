@@ -29,12 +29,14 @@ public class EmployeesController {
 	String edit(@RequestParam("employeeId") String employeeId, Model model) {
 		Employee employee = employeeService.findEmployee(employeeId);
 		model.addAttribute("employee", employee);
+		model.addAttribute("method", "edit");
 		return "employee/editEmployee";
 	}
 	@RequestMapping(method=RequestMethod.POST, params="add")
 	String add(Model model) {
 		Employee employee = employeeService.newEmployee();
 		model.addAttribute("employee", employee);
+		model.addAttribute("method", "add");
 		return "employee/editEmployee";
 	}	
 	@RequestMapping(method=RequestMethod.POST, params="update")

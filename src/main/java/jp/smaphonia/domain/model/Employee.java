@@ -2,6 +2,8 @@ package jp.smaphonia.domain.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +18,17 @@ public class Employee {
 	private String photoId;
 	private String address;
 	private String divId;
+	
+	@OneToOne
+	@JoinColumn(name="divId", insertable=false, updatable=false)
+	private Division division;
+	
+	public Division getDivision() {
+		return division;
+	}
+	public void setDivision(Division division) {
+		this.division = division;
+	}
 	public String getId() {
 		return id;
 	}
