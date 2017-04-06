@@ -2,42 +2,53 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8"/>
-	<title>従業員一覧</title>
+	<title>社員一覧</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-<h3>従業員一覧</h3>
-<table border="1">
-<thead>
-<tr>
-<th>社員ID</th>
-<th>名前</th>
-<th>部署</th>
-<th>年齢</th>
-<th>住所</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr th:each="employee: ${employees}">
-<td th:text="${employee.id}"></td>
-<td th:text="${employee.name}"></td>
-<td th:text="${employee.division.name}"></td>
-<td th:text="${employee.age}" style="text-align: right;"></td>
-<td th:text="${employee.address}"></td>
-<td>
-<form th:action="@{'/employees/'}" method="post">
-<input type="hidden" name="employeeId" th:value="${employee.id}"/>
-<input type="submit" name="edit" value="編集"></input>
-<input type="submit" name="cancel" value="削除"></input>
-</form>
-</td>
-</tr>
-</tbody>
-</table>
-<form th:action="@{'/employees/'}" method="post">
-<input type="submit" name="add" value="新規追加"/><br/>
-<input type="submit" name="search" value="検索..."/><br/>
-<input type="submit" name="csv_export" value="CSVファイルに出力"/><br/>
-</form>
+<div class="container">
+	<div class="page-header">
+		<h1>社員一覧</h1>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>社員ID</th>
+					<th>名前</th>
+					<th>部署</th>
+					<th>年齢</th>
+					<th>住所</th>
+					<th width="20%"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="employee: ${employees}">
+				<td th:text="${employee.id}"></td>
+				<td th:text="${employee.name}"></td>
+				<td th:text="${employee.division.name}"></td>
+				<td th:text="${employee.age}"></td>
+				<td th:text="${employee.address}"></td>
+				<td>
+					<form class="form-horizontal" th:action="@{'/employees/'}" method="post">
+						<input type="hidden" name="employeeId" th:value="${employee.id}"/>
+						<div class="form-group">
+							<button class="btn btn-default" type="submit" name="edit">編集</button>
+							<button class="btn btn-default" type="submit" name="cancel">削除</button>
+						</div>
+					</form>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	<form class="form-horizontal" th:action="@{'/employees/'}" method="post">
+		<div class="form-group">
+			<button class="btn btn-primary"  type="submit" name="add">新規追加</button>
+			<button class="btn btn-primary"  type="submit" name="search">検索...</button>
+			<button class="btn btn-primary"  type="submit" name="csv_export">CSVファイルに出力</button>
+		</div>
+	</form>
+</div>
 </body>
 </html>

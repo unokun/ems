@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jp.smaphonia.domain.model.Division;
 import jp.smaphonia.domain.model.Employee;
+import jp.smaphonia.domain.service.division.DivisionService;
 import jp.smaphonia.domain.service.employee.EmployeeService;
 
 @Controller
@@ -18,6 +20,9 @@ public class EmployeesController {
 
 	@Autowired
 	EmployeeService employeeService;
+	
+	@Autowired
+	DivisionService divisionService;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	String listEmployees(Model model) {
@@ -29,6 +34,8 @@ public class EmployeesController {
 	String edit(@RequestParam("employeeId") String employeeId, Model model) {
 		Employee employee = employeeService.findEmployee(employeeId);
 		model.addAttribute("employee", employee);
+		List<Division> divisions = divisionService.findAllDivision();
+		model.addAttribute("divisions", divisions);
 		model.addAttribute("method", "edit");
 		return "employee/editEmployee";
 	}
