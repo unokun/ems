@@ -1,5 +1,6 @@
 package jp.smaphonia.app.employee;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,24 @@ public class EmployeesController {
 		employeeService.cancel(employeeId);
 		
 		List<Employee> employees = employeeService.findAllEmployee();
+		model.addAttribute("employees", employees);
+		return "employee/listEmployees";
+	}
+	@RequestMapping(method=RequestMethod.POST, params="search")
+	String search(Model model) {
+		List<Division> divisions = new ArrayList<Division>();
+		Division division = new Division();
+		division.setId("");
+		division.setName("未指定");
+		divisions.add(division);
+		divisions.addAll(divisionService.findAllDivision());
+		
+		model.addAttribute("divisions", divisions);
+		return "employee/searchEmployee";
+	}
+	@RequestMapping(method=RequestMethod.POST, params="searchEmployee")
+	String searchEmployee(@RequestParam("employeeId") String employeeId, @RequestParam("divisionId") String divisionId, @RequestParam("employeeName") String employeeName, Model model) {
+		List<Employee> employees = employeeService.findEmployee(employeeId, divisionId, employeeName);
 		model.addAttribute("employees", employees);
 		return "employee/listEmployees";
 	}

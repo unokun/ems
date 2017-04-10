@@ -3,11 +3,16 @@ package jp.smaphonia.domain.service.employee;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import jp.smaphonia.domain.model.Employee;
 import jp.smaphonia.domain.repository.empolyee.EmployeeRepository;
@@ -18,6 +23,60 @@ public class EmployeeService {
 	@Autowired
 	EmployeeRepository employeeRepository;
 	
+	@Autowired
+	javax.persistence.EntityManager entityManager;
+	
+	public List<Employee> findEmployee(String id, String divId, String name) {
+		// native SQL
+//		StringBuilder builder = new StringBuilder();
+//		builder.append("from Employee ");
+//		if (!id.isEmpty() || !divId.isEmpty() || !name.isEmpty()) {
+//			builder.append(" where 1 = 1 ");
+//		}
+//		if (!id.isEmpty()) {
+//			builder.append(" and id = :id ");
+//		}
+//		if (!divId.isEmpty()) {
+//			builder.append(" and divId = :divId ");
+//		}
+//		if (!name.isEmpty()) {
+//			builder.append(" and name like :name");
+//		}
+//		Query query = entityManager.createQuery(builder.toString(), Employee.class);
+//		if (!id.isEmpty()) {
+//			query.setParameter("id", id);
+//		}
+//		if (!divId.isEmpty()) {
+//			query.setParameter("divId", divId);
+//		}
+//		if (!name.isEmpty()) {
+//			query.setParameter("name", "%" + name + "%");
+//		}
+//		return query.getResultList();
+		// Specification
+		return employeeRepository.findAll(
+				Specifications
+				.where(idContains(id))
+				.and(divIdContains(divId))
+				.and(nameContains(name))
+				);
+	}
+	
+	public Specification<Employee> idContains(String id) {
+		return StringUtils.isEmpty(id) ? null : (root, query, cb) -> {
+			return cb.like(root.get("id"), id);
+		};
+	}
+	public Specification<Employee> divIdContains(String divId) {
+		return StringUtils.isEmpty(divId) ? null : (root, query, cb) -> {
+			return cb.like(root.get("divId"), divId);
+		};
+	}
+	public Specification<Employee> nameContains(String name) {
+		return StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
+			return cb.like(root.get("name"), "%" + name + "%");
+		};
+	}
 	public Employee findEmployee(String id) {
 		return employeeRepository.findOne(id);
 	}
