@@ -13,36 +13,92 @@
 	</div>
 	<form class="form-horizontal" role="form" th:action="@{'/employees/'}" method="post">
 		<div class="form-group">
-			<div class="col-md-1">
+			<div class="col-md-2">
 				<label class="form-label" for="idEmpoyeeName">社員名</label>
 			</div>
 			<div class="col-md-3">
 				<input class="form-control" type="text" id="idEmpoyeeName" name="name" th:value="${employee.name}"/>
 			</div>
-			<div class="col-md-8"></div>
+			<div class="col-md-7"></div>
 		</div>
 		<div class="form-group">
-			<div class="col-md-1">
+			<div class="col-md-2">
 				<label class="form-label" for="idDivision">部署</label>
 			</div>
 			<div class="col-md-3">
-				<select class="form-control" id="idDivision" name="division">
+				<select class="form-control" id="idDivision" name="divId">
 					<option th:each="division : ${divisions}" th:value="${division.id}" th:text="${division.name}" th:selected="${division.id} == ${employee.divId}"></option>
 				</select>
 			</div>
-			<div class="col-md-8"></div>
+			<div class="col-md-7"></div>
 		</div>
 		<div class="form-group">
-			<div class="col-md-1">
+			<div class="col-md-2">
+				<label class="form-label" for="idAge">年齢</label>
+			</div>
+			<div class="col-md-5">
+				<input class="form-control" type="text" id="idAge" name="age" th:value="${employee.age}"/>
+			</div>
+			<div class="col-md-7"></div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-2">
+				<label class="form-label">性別</label>
+			</div>
+			<div class="col-md-5">
+				<div class="radio-inline">
+  				<label th:for="idMan">
+				<input type="radio" name="gender" value="男" id="idMan" th:checked="${employee.gender} == '男'"/>
+  				男性</label>
+				</div>
+				<div class="radio-inline">
+  				<label th:for="idWoman">
+				<input type="radio" name="gender" value="女" id="idWoman" th:checked="${employee.gender} == '女'"/>
+  				女性</label>
+				</div>
+			</div>
+			<div class="col-md-5"></div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-2">
+				<label class="form-label" for="idPostal">郵便番号</label>
+			</div>
+			<div class="col-md-5">
+				<input class="form-control" type="text" id="idPostal" name="postalCode" th:value="${employee.postalCode}"/>
+			</div>
+			<div class="col-md-7"></div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-2">
+				<label class="form-label" for="idPref">都道府県</label>
+			</div>
+			<div class="col-md-3">
+				<select class="form-control" id="idPref" name="pref">
+					<option th:each="pref : ${prefs}" th:value="${pref.name}" th:text="${pref.name}" th:selected="${pref.name} == ${employee.pref}"></option>
+				</select>
+			</div>
+			<div class="col-md-7"></div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-2">
+				<label class="form-label" for="idCity">市区町村</label>
+			</div>
+			<div class="col-md-5">
+				<input class="form-control" type="text" id="idCity" name="city" th:value="${employee.city}"/>
+			</div>
+			<div class="col-md-5"></div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-2">
 				<label class="form-label" for="idAddress">住所</label>
 			</div>
 			<div class="col-md-5">
-				<input class="form-control" type="text" id="idAddress" name="name" th:value="${employee.name}"/>
+				<input class="form-control" type="text" id="idAddress" name="address" th:value="${employee.address}"/>
 			</div>
-			<div class="col-md-6"></div>
+			<div class="col-md-5"></div>
 		</div>
 		<div class="form-group">
-			<div class="col-md-offset-1 col-md-11">
+			<div class="col-md-offset-2 col-md-10">
 				<button class="btn btn-primary"  type="submit" name="update" th:text="${method.equals('add')} ? '登録' : '更新'"></button>
 			</div>
 			<input type="hidden" name="employeeId" th:value="${employee.id}"/>

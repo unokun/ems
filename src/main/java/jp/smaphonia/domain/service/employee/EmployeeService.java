@@ -61,7 +61,8 @@ public class EmployeeService {
 				.and(nameContains(name))
 				);
 	}
-	
+	//Spring Data JPA でのクエリー実装方法まとめ - Qiita 
+	//http://qiita.com/tag1216/items/55742fdb442e5617f727
 	public Specification<Employee> idContains(String id) {
 		return StringUtils.isEmpty(id) ? null : (root, query, cb) -> {
 			return cb.like(root.get("id"), id);
@@ -95,13 +96,18 @@ public class EmployeeService {
 		return employee;
 	}
 
-	public void update(String id, String name, String address) {
+	public void update(String id, String name, String divId, int age, String gender, String postalCode, String pref, String city, String address) {
 		Employee employee = employeeRepository.findOne(id);
 		if (employee == null) {
 			employee = new Employee();
 			employee.setId(id);
 		}
 		employee.setName(name);
+		employee.setAge(age);
+		employee.setGender(gender);
+		employee.setPostalCode(postalCode);
+		employee.setPref(pref);
+		employee.setCity(city);
 		employee.setAddress(address);
 		employeeRepository.save(employee);
 		

@@ -28,7 +28,7 @@
 				<td th:text="${employee.name}"></td>
 				<td th:text="${employee.division.name}"></td>
 				<td th:text="${employee.age}"></td>
-				<td th:text="${employee.address}"></td>
+				<td th:text="'〒' + ${employee.postalCode} + ' ' + ${employee.pref} + ${employee.city}"></td>
 				<td>
 					<form class="form-horizontal" th:action="@{'/employees/'}" method="post">
 						<input type="hidden" name="employeeId" th:value="${employee.id}"/>
@@ -43,6 +43,9 @@
 		</table>
 	</div>
 	<form class="form-horizontal" th:action="@{'/employees/'}" method="post">
+		<input type="hidden" name="employeeId" th:value="${employeeId}"/>
+		<input type="hidden" name="divisionId" th:value="${divisionId}"/>
+		<input type="hidden" name="employeeName" th:value="${employeeName}"/>
 		<div class="form-group">
 			<button class="btn btn-primary"  type="submit" name="add">新規追加</button>
 			<button class="btn btn-primary"  type="submit" name="search">検索...</button>

@@ -11,11 +11,13 @@ import javax.persistence.Table;
 public class Employee {
 	@Id
 	private String id;
-	
 	private String name;
 	private int age;
-	private String sex;
+	private String gender;
 	private String photoId;
+	private String postalCode;
+	private String pref;
+	private String city;
 	private String address;
 	private String divId;
 	
@@ -47,17 +49,35 @@ public class Employee {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public String getSex() {
-		return sex;
+	public String getGender() {
+		return gender;
 	}
-	public void setSex(String sex) {
-		this.sex = sex;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	public String getPhotoId() {
 		return photoId;
 	}
 	public void setPhotoId(String photoId) {
 		this.photoId = photoId;
+	}
+	public String getPostalCode() {
+		return postalCode;
+	}
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+	public String getPref() {
+		return pref;
+	}
+	public void setPref(String pref) {
+		this.pref = pref;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
 	}
 	public String getAddress() {
 		return address;
