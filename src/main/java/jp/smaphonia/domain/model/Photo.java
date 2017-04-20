@@ -1,7 +1,9 @@
 package jp.smaphonia.domain.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -10,6 +12,8 @@ public class Photo {
 	@Id
 	private String id;
 	
+	@Lob
+	@Column(length=1000000)
 	private byte[] data;
 
 	public String getId() {

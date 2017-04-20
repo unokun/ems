@@ -96,6 +96,23 @@ public class EmployeeService {
 		return employee;
 	}
 
+	public void update(String id, String name, String divId, int age, String gender, String postalCode, String pref, String city, String address, String photoId) {
+		Employee employee = employeeRepository.findOne(id);
+		if (employee == null) {
+			employee = new Employee();
+			employee.setId(id);
+		}
+		employee.setName(name);
+		employee.setAge(age);
+		employee.setGender(gender);
+		employee.setPostalCode(postalCode);
+		employee.setPref(pref);
+		employee.setCity(city);
+		employee.setAddress(address);
+		employee.setPhotoId(photoId);
+		employeeRepository.save(employee);
+		
+	}
 	public void update(String id, String name, String divId, int age, String gender, String postalCode, String pref, String city, String address) {
 		Employee employee = employeeRepository.findOne(id);
 		if (employee == null) {

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
@@ -28,6 +29,7 @@ import jp.smaphonia.domain.model.Employee;
 import jp.smaphonia.domain.model.Prefecture;
 import jp.smaphonia.domain.service.division.DivisionService;
 import jp.smaphonia.domain.service.employee.EmployeeService;
+import jp.smaphonia.domain.service.photo.PhotoService;
 import jp.smaphonia.domain.service.prefecture.PrefectureService;
 
 
@@ -43,6 +45,9 @@ public class EmployeesController {
 
 	@Autowired
 	PrefectureService prefectureService;
+	
+	@Autowired
+	PhotoService photoService;
 
 	@RequestMapping(method=RequestMethod.GET)
 	String listEmployees(Model model) {
@@ -81,9 +86,11 @@ public class EmployeesController {
 	String update(@RequestParam("employeeId") String employeeId, @RequestParam("name") String employeeName,
 			@RequestParam("age") String age, @RequestParam("gender") String gender,
 			@RequestParam("divId") String divId, @RequestParam("postalCode") String postalCode,
-			@RequestParam("pref") String pref, @RequestParam("city") String city,
-			@RequestParam("address") String address, Model model) {
-		employeeService.update(employeeId, employeeName, divId, Integer.parseInt(age), gender, postalCode, pref, city, address);
+			@RequestParam("pref") String pref, @RequestParam("city") String city, @RequestParam("address") String address, 
+			@RequestParam("photoId") String photoId, @RequestParam("file") MultipartFile multipartFile, 
+			Model model) throws IOException {
+		String id = photoService.update(photoId, multipartFile.getBytes());
+		employeeService.update(employeeId, employeeName, divId, Integer.parseInt(age), gender, postalCode, pref, city, address, id);
 		
 		List<Employee> employees = employeeService.findAllEmployee();
 		model.addAttribute("employees", employees);
